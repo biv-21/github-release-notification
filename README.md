@@ -17,7 +17,7 @@ The app will be available at `http://localhost:3303`.
 
 ### Running locally
 
-Requires Node.js 20+ and a running PostgreSQL instance.
+Requires Node.js 24 and a running PostgreSQL instance.
 
 ```bash
 yarn install

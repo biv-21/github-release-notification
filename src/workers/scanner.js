@@ -13,14 +13,17 @@ let isRunning = false;
 
 const runScan = async () => {
   if (isRunning) {
-    logger.warn("Previous scan still running, skipping");
+    logger.warn("Scanner skipped: previous run still in progress.");
     return;
   }
   isRunning = true;
+  const startTime = Date.now();
+  logger.info("Scanner started.");
 
   try {
     const repositories =
       await repositoryRepository.findAllWithActiveSubscriptions();
+    logger.info(`Found ${repositories.length} repositories to scan.`);
 
     for (let index = 0; index < repositories.length; index += BATCH_SIZE) {
       const batch = repositories.slice(index, index + BATCH_SIZE);
@@ -41,6 +44,9 @@ const runScan = async () => {
             githubData.latest_tag &&
             githubData.latest_tag !== sourceRepo.last_seen_tag
           ) {
+            logger.info(
+              `New release detected: ${sourceRepo.owner_repo} [${sourceRepo.last_seen_tag || "none"} -> ${githubData.latest_tag}]`,
+            );
             await repositoryRepository.updateLastSeenTag(
               sourceRepo.id,
               githubData.latest_tag,
@@ -57,17 +63,22 @@ const runScan = async () => {
                 sourceRepo.owner_repo,
                 githubData.latest_tag,
               );
+              logger.info(
+                `Sent release notifications to ${emails.length} subscribers for ${sourceRepo.owner_repo}.`,
+              );
             }
           }
 
-          logger.info("checked", sourceRepo.id);
+          logger.debug(`Checked ${sourceRepo.owner_repo}`);
         }
       } catch (batchError) {
-        logger.error(batchError);
+        logger.error(`Batch ${batchNumber} failed: ${batchError.message}`);
       }
     }
+    const duration = Date.now() - startTime;
+    logger.info(`Scanner completed successfully in ${duration}ms.`);
   } catch (error) {
-    logger.error(error);
+    logger.error(`Critical scanner error: ${error.message}`);
   } finally {
     isRunning = false;
   }

@@ -32,8 +32,20 @@ const findAllWithActiveSubscriptions = async () => {
   return rows;
 };
 
+const updateLastSeenTag = async (repoId, tag) => {
+  const query = `
+    UPDATE ${Repository.tableName}
+    SET last_seen_tag = $1, last_checked_at = current_timestamp, updated_at = current_timestamp
+    WHERE id = $2
+    RETURNING *
+  `;
+  const { rows } = await db.query(query, [tag, repoId]);
+  return rows[0] || null;
+};
+
 module.exports = {
   create,
   findByOwnerRepo,
   findAllWithActiveSubscriptions,
+  updateLastSeenTag,
 };

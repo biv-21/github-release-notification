@@ -12,6 +12,7 @@ const initTransporter = async () => {
     transporter = nodemailer.createTransport({
       host: config.email.host,
       port: config.email.port,
+      secure: config.email.secure,
       auth: {
         user: config.email.user,
         pass: config.email.pass,

@@ -33,6 +33,7 @@ jest.mock("../../utils/logger", () => ({
   info: jest.fn(),
   warn: jest.fn(),
   error: jest.fn(),
+  debug: jest.fn(),
 }));
 
 jest.mock("../../config", () => ({
@@ -121,7 +122,7 @@ describe("Scanner Worker", () => {
     await Promise.all([firstExecution, secondExecution]);
 
     expect(logger.warn).toHaveBeenCalledWith(
-      "Previous scan still running, skipping",
+      "Scanner skipped: previous run still in progress.",
     );
     expect(
       repositoryRepository.findAllWithActiveSubscriptions,
@@ -149,7 +150,7 @@ describe("Scanner Worker", () => {
 
     await runScan();
 
-    expect(logger.error).toHaveBeenCalledWith(expect.any(Error));
+    expect(logger.error).toHaveBeenCalledWith(expect.stringContaining("Batch"));
     expect(githubService.findRepositoriesBatch).toHaveBeenCalledTimes(2);
     expect(repositoryRepository.updateLastSeenTag).toHaveBeenCalledWith(
       "repo-50",

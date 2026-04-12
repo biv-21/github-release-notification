@@ -72,7 +72,7 @@ const runScan = async () => {
           logger.debug(`Checked ${sourceRepo.owner_repo}`);
         }
       } catch (batchError) {
-        logger.error(`Batch ${batchNumber} failed: ${batchError.message}`);
+        logger.error(`Batch failed: ${batchError.message}`);
       }
     }
     const duration = Date.now() - startTime;

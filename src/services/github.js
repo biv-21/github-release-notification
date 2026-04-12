@@ -99,7 +99,11 @@ const findRepositoriesBatch = async (repositories) => {
   try {
     data = await octokit.graphql(query);
   } catch (error) {
-    return results;
+    if (error.name === "GraphqlResponseError" && error.data) {
+      data = error.data;
+    } else {
+      throw error;
+    }
   }
 
   repositories.forEach((repository, index) => {

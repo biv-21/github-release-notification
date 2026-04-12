@@ -85,4 +85,5 @@ const startScanner = () => {
 
 module.exports = {
   startScanner,
+  runScan,
 };

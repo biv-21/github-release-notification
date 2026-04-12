@@ -5,7 +5,6 @@ const {
 } = require("../repositories");
 const { Subscription, User, Repository } = require("../models");
 const { ConflictError, NotFoundError } = require("../utils/errors");
-const logger = require("../utils/logger");
 const crypto = require("node:crypto");
 const githubService = require("./github");
 const emailService = require("./email");

@@ -9,7 +9,9 @@
     "migrate:up": "node scripts/migrate.js up",
     "migrate:down": "node scripts/migrate.js down",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "biome lint .",
+    "lint:ci": "biome ci ."
   },
   "dependencies": {
     "@octokit/core": "7.0.6",

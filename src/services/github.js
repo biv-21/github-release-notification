@@ -6,12 +6,12 @@ const OctokitWithPlugin = Octokit.plugin(throttling);
 const octokit = new OctokitWithPlugin({
   auth: app.githubToken,
   throttle: {
-    onRateLimit: (retryAfter, options, octokit, retryCount) => {
+    onRateLimit: (_retryAfter, _options, _octokit, retryCount) => {
       if (retryCount < 1) {
         return true;
       }
     },
-    onSecondaryRateLimit: (retryAfter, options, octokit) => {
+    onSecondaryRateLimit: (_retryAfter, _options, _octokit) => {
       return true;
     },
   },

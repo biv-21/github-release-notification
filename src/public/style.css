@@ -8,8 +8,9 @@ main {
   padding-bottom: 3rem;
 }
 
-[hidden] {
-  display: none !important;
+section[hidden],
+.toast[hidden] {
+  display: none;
 }
 
 .toast {

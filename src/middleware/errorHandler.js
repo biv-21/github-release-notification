@@ -1,7 +1,7 @@
 const { ZodError } = require("zod");
 const logger = require("../utils/logger");
 
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, _req, res, _next) => {
   if (err instanceof ZodError) {
     logger.warn("Validation failed: Invalid request data");
     return res.status(400).json({

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>GitHub Release Notifications</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="container">
+        <div id="toast" class="toast" hidden></div>
+
+        <section id="view-subscribe" hidden>
+            <h2>Subscribe</h2>
+            <form id="form-subscribe">
+                <fieldset>
+                    <input type="email" id="sub-email" placeholder="Email address" required />
+                    <input type="text" id="sub-repo" placeholder="owner/repo" required
+                        pattern="^[a-zA-Z0-9-]+\/[a-zA-Z0-9-._]+$" />
+                    <button type="submit">Subscribe</button>
+                </fieldset>
+            </form>
+            <p><a href="#" id="link-to-unsub">I want to unsubscribe</a></p>
+        </section>
+
+        <section id="view-confirm" hidden>
+            <h2>Confirm Subscription</h2>
+            <form id="form-confirm">
+                <fieldset>
+                    <input type="text" id="confirm-token" placeholder="Confirmation Token" required />
+                    <button type="submit">Confirm</button>
+                </fieldset>
+            </form>
+        </section>
+
+        <section id="view-dashboard" hidden>
+            <h2>My Subscriptions</h2>
+            <p>Email: <strong id="dash-email-display"></strong> (<a href="#" id="link-logout">Logout</a>)</p>
+
+            <div class="overflow-auto">
+                <table class="striped">
+                    <thead>
+                        <tr>
+                            <th>Repository</th>
+                            <th>Status</th>
+                            <th>Last Tag</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+            </div>
+
+            <hr />
+
+            <div class="grid">
+                <article>
+                    <h3>Add Repository</h3>
+                    <form id="form-add-repo">
+                        <fieldset>
+                            <input type="text" id="add-repo-name" placeholder="owner/repo" required
+                                pattern="^[a-zA-Z0-9-]+\/[a-zA-Z0-9-._]+$" />
+                            <button type="submit">Subscribe</button>
+                        </fieldset>
+                    </form>
+                </article>
+
+                <article>
+                    <h3>Unsubscribe</h3>
+                    <form id="form-dashboard-unsub">
+                        <fieldset>
+                            <input type="text" id="dash-unsub-token" placeholder="Unsubscribe Token" required />
+                            <button type="submit" class="secondary">Unsubscribe</button>
+                        </fieldset>
+                    </form>
+                </article>
+            </div>
+        </section>
+
+        <section id="view-unsubscribe" hidden>
+            <h2>Unsubscribe</h2>
+            <form id="form-unsub-only">
+                <fieldset>
+                    <input type="text" id="unsub-only-token" placeholder="Unsubscribe Token" required />
+                    <button type="submit" class="secondary">Unsubscribe</button>
+                </fieldset>
+            </form>
+            <p><a href="#" id="link-to-sub">Back to Subscribe</a></p>
+        </section>
+    </main>
+    <script src="index.js"></script>
+</body>
+
+</html>

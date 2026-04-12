@@ -1,0 +1,27 @@
+{
+  "name": "grn-app",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "scripts": {
+    "start": "yarn migrate:up && node ./src/index.js ",
+    "start:dev": "yarn migrate:up && node --watch ./src/index.js",
+    "migrate:create": "node-pg-migrate create",
+    "migrate:up": "node scripts/migrate.js up",
+    "migrate:down": "node scripts/migrate.js down"
+  },
+  "dependencies": {
+    "@octokit/core": "7.0.6",
+    "@octokit/plugin-throttling": "11.0.3",
+    "dotenv": "17.4.1",
+    "express": "5.2.1",
+    "node-cron": "4.2.1",
+    "node-pg-migrate": "8.0.4",
+    "nodemailer": "8.0.5",
+    "octokit": "5.0.5",
+    "pg": "8.20.0",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.11"
+  }
+}

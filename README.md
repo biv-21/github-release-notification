@@ -1,7 +1,3 @@
-## Live demo
-
-[https://grn.avhiab.dev](https://grn.avhiab.dev)
-
 ## Environment setup
 
 Copy `.env.example` to `.env` and fill in the values:
